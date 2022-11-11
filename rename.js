@@ -1,12 +1,11 @@
 const fs=require('fs');
 const dir='./';
-let result={},cnt=0;
+let cnt=0;
+function getStatus(n,number){
+    return (Array(n).join('0')+number).slice(-n);
+}
 fs.readdir(dir,(err,files)=>{
-    files.forEach(file=>{
-        if(!file.includes('.js'))
-            result[file]=++cnt;
-    });
-    for(let i in result){
-        fs.renameSync(i,`${result[i]}.jpg`);
-    }
+    for(let i in files)
+        if(!files[i].includes('.js'))
+            fs.renameSync(files[i],`S_${getStatus(4,++cnt)}.jpg`);
 });
